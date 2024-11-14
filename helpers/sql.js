@@ -1,6 +1,12 @@
 const { BadRequestError } = require("../expressError");
 
-// THIS NEEDS SOME GREAT DOCUMENTATION.
+// Selective query updating helper function.
+// This function is used to selectively update a given piece of data in SQL
+// just like updating a certain user's last_name if they somehow got a name change.
+//
+// sqlForPartialUpdate(certainUserOBJ, OBJWithJSFieldsToDBColName)
+// dataToUpdate = {Object} {firstField: newVal, secondField: newVal, ...}
+// jsToSql = {Object} mapping of JS fields to column names. It's like a functionality from an ORM.
 
 function sqlForPartialUpdate(dataToUpdate, jsToSql) {
   const keys = Object.keys(dataToUpdate);
