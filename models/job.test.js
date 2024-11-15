@@ -7,7 +7,7 @@ beforeEach(commonBeforeEach);
 afterAll(commonAfterAll);
 afterEach(commonAfterEach);
 
-//create
+// create
 
 describe("create", () => {
     let newJob = { companyHandle: "c1", title: "testJob", salary: 900, equity: "0.2" };
@@ -18,7 +18,7 @@ describe("create", () => {
     })
 })
 
-//findAll
+// findAll
 
 describe("findAll", () => {
     test("works with no filter", async () => {
@@ -47,7 +47,7 @@ describe("findAll", () => {
     })
 })
 
-//get
+// get
 
 describe("get", () => {
     test("works as intended", async () => {
@@ -65,7 +65,7 @@ describe("get", () => {
     })
 })
 
-//update
+// update
 
 describe("update", () => {
     let updateData = { title: "New", salary: 500, equity: "0.5" };
@@ -77,7 +77,7 @@ describe("update", () => {
 
     test("throws notFound if job id isn't found", async () => {
         try {
-            await Job.update(0, {title: "this is a title which won't work."});
+            await Job.update(0, { title: "this is a title which won't work." });
             fail();
         } catch (err) {
             expect(err instanceof NotFoundError).toBeTruthy();
@@ -91,5 +91,15 @@ describe("update", () => {
         } catch (err) {
             expect(err instanceof BadRequestError).toBeTruthy();
         }
+    })
+})
+
+// remove
+
+describe("remove", () => {
+    test("works as intended", async () => {
+        await Job.remove(testJobIds[0]);
+        const result = await db.query("SELECT id FROM jobs WHERE id = $1", [testJobIds[0]]);
+        expect(result.row.length).toEqual(0);
     })
 })
