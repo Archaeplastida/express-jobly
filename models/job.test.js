@@ -55,12 +55,23 @@ describe("get", () => {
         expect(job).toEqual({ id: testJobIds[0], title: "Job1", salary: 100, equity: "0.1", company: { handle: "c1", name: "C1", description: "Desc1", numEmployees: 1, logoUrl: "http://c1.img", } });
     })
 
-    test("throws not found if job id isnt' found", async () => {
+    test("throws not found if job id isn't found", async () => {
         try {
             await Job.get(0);
             fail();
         } catch (err) {
             expect(err instanceof NotFoundError).toBeTruthy();
         }
+    })
+})
+
+//update
+
+describe("update", () => {
+    let updateData = { title: "New", salary: 500, equity: "0.5" };
+
+    test("works as intended", async () => {
+        let job = await Job.update(testJobIds, updateData);
+        expect(job).toEqual({id: testJobIds[0], companyHandle: "c1", ...updateData,});
     })
 })
