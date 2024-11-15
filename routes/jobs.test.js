@@ -45,4 +45,9 @@ describe("GET /jobs", function () {
         const resp = await request(app).get(`/jobs`).query({ minSalary: 2, title: "3" });
         expect(resp.body).toEqual({ jobs: [{ id: expect.any(Number), title: "J3", salary: 3, equity: null, companyHandle: "c1", companyName: "C1" }] });
     });
+
+    test("bad request on invalid filter key", async function () {
+        const resp = await request(app).get(`/jobs`).query({ minSalary: 2, nope: "nope" });
+        expect(resp.statusCode).toEqual(400);
+    });
 });
