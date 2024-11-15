@@ -46,3 +46,12 @@ describe("findAll", () => {
         expect(jobs).toEqual([{ id: testJobIds[0], title: "Job1", salary: 100, equity: "0.1", companyHandle: "c1", companyName: "C1", }])
     })
 })
+
+//get
+
+describe("get", () => {
+    test("works as intended", async () => {
+        let job = await Job.get(testJobIds[0]);
+        expect(job).toEqual({ id: testJobIds[0], title: "Job1", salary: 100, equity: "0.1", company: { handle: "c1", name: "C1", description: "Desc1", numEmployees: 1, logoUrl: "http://c1.img", } })
+    })
+})
