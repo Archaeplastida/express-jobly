@@ -5,6 +5,7 @@ const jobSchemaNew = require("../schemas/jobNew.json"), jobSchemaUpdate = requir
 
 const router = express.Router({ mergeParams: true })
 
+//Adds a job into the database, however it can only be done by admin.
 router.post("/", ensureAdmin, async (req, res, next) => {
     try {
         const validator = jsonschema.validate(req.body, jobSchemaNew);
@@ -20,6 +21,7 @@ router.post("/", ensureAdmin, async (req, res, next) => {
     }
 })
 
+//Gets a list of jobs, with an optional filter using query string.
 router.get("/", async (req, res, next) => {
     const query = req.query;
     if (query.minSalary !== undefined) query.minSalary = +query.minSalary;
@@ -34,6 +36,16 @@ router.get("/", async (req, res, next) => {
 
         const jobs = await Job.findAll(query);
         return res.json({ jobs });
+    } catch (err) {
+        return next(err);
+    }
+})
+
+//Gets a job via id.
+router.get("/:id", async (req, res, next) => {
+    try {
+        const job = await Job.get(req.params.id);
+        return res.json({ job });
     } catch (err) {
         return next(err);
     }
