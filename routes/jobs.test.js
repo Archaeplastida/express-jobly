@@ -84,4 +84,9 @@ describe("PATCH /jobs/:id", function () {
         const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ handle: "new" }).set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(400);
     });
+
+    test("bad request with invalid data", async function () {
+        const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ salary: "not-a-number" }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(400);
+    });
 });
