@@ -23,4 +23,9 @@ describe("POST /jobs", function () {
         const resp = await request(app).post(`/jobs`).send({ companyHandle: "c1", }).set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(400);
     });
+
+    test("bad request with invalid data", async function () {
+        const resp = await request(app).post(`/jobs`).send({ companyHandle: "c1", title: "J-new", salary: "not-a-number", equity: "0.2", }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(400);
+    });
 });
