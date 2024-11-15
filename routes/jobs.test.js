@@ -51,3 +51,10 @@ describe("GET /jobs", function () {
         expect(resp.statusCode).toEqual(400);
     });
 });
+
+describe("GET /jobs/:id", function () {
+    test("works for anon", async function () {
+        const resp = await request(app).get(`/jobs/${testJobIds[0]}`);
+        expect(resp.body).toEqual({ job: { id: testJobIds[0], title: "J1", salary: 1, equity: "0.1", company: { handle: "c1", name: "C1", description: "Desc1", numEmployees: 1, logoUrl: "http://c1.img" } } });
+    });
+});
