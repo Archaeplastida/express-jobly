@@ -75,4 +75,8 @@ describe("PATCH /jobs/:id", function () {
         expect(resp.statusCode).toEqual(401);
     });
 
+    test("not found on no such job", async function () {
+        const resp = await request(app).patch(`/jobs/0`).send({ handle: "new" }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(400);
+    });
 });
