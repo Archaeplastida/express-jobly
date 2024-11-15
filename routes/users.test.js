@@ -357,4 +357,9 @@ describe("POST /users/:username/jobs/:id", function () {
     const resp = await request(app).post(`/users/u1/jobs/${testJobIds[1]}`);
     expect(resp.statusCode).toEqual(401);
   })
+
+  test("not found for no such username", async function () {
+    const resp = await request(app).post(`/users/nope/jobs/${testJobIds[1]}`).set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toEqual(404);
+  })
 })
