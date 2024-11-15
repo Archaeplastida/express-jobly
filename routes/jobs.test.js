@@ -101,4 +101,9 @@ describe("DELETE /jobs/:id", function () {
         const resp = await request(app).delete(`/jobs/${testJobIds[0]}`).set("authorization", `Bearer ${u1Token}`);
         expect(resp.statusCode).toEqual(401);
     });
+
+    test("unauth for anon", async function () {
+        const resp = await request(app).delete(`/jobs/${testJobIds[0]}`);
+        expect(resp.statusCode).toEqual(401);
+    });
 });
