@@ -67,4 +67,12 @@ class Job {
 
         return result.rows[0];
     }
+
+    // Deletes data of a job, based on the id given.
+    // If an id doesn't yield any results, throw NotFoundError.
+
+    static async remove(id) {
+        const result = db.query(`DELETE FROM jobs WHERE id = $1 RETURNING id`, [id]);
+        if (!result.rows[0]) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
+    }
 }
