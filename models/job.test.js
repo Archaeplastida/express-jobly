@@ -102,4 +102,13 @@ describe("remove", () => {
         const result = await db.query("SELECT id FROM jobs WHERE id = $1", [testJobIds[0]]);
         expect(result.row.length).toEqual(0);
     })
+
+    test("throws notFound if job id isn't found", async () => {
+        try {
+            await Job.delete(0);
+            fail();
+        } catch (err) {
+            expect(err instanceof NotFoundError).toBeTruthy();
+        }
+    })
 })
