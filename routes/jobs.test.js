@@ -90,3 +90,10 @@ describe("PATCH /jobs/:id", function () {
         expect(resp.statusCode).toEqual(400);
     });
 });
+
+describe("DELETE /jobs/:id", function () {
+    test("works for admin", async function () {
+        const resp = await request(app).delete(`/jobs/${testJobIds[0]}`).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.body).toEqual({ deleted: testJobIds[0] });
+      });
+  });
