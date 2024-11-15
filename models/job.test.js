@@ -77,9 +77,8 @@ describe("update", () => {
 
     test("throws notFound if job id isn't found", async () => {
         try {
-            await Job.update(0, {
-                title: "this is a title which won't work."
-            })
+            await Job.update(0, {title: "this is a title which won't work."});
+            fail();
         } catch (err) {
             expect(err instanceof NotFoundError).toBeTruthy();
         }
