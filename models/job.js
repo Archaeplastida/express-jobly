@@ -48,7 +48,7 @@ class Job {
         const jobResult = await db.query(`SELECT id, title, salary, equity, company_handle AS "companyHandle" FROM jobs WHERE id = $1`, [id]), job = jobResult.rows[0];
         if (!job) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
 
-        const companyResult = await db.query(`SELECT handle, name, description, num_employees AS "numEmployee", logo_url AS "logoUrl" FROM companies WHERE handle = $1`, [job.companyHandle]);
+        const companyResult = await db.query(`SELECT handle, name, description, num_employees AS "numEmployees", logo_url AS "logoUrl" FROM companies WHERE handle = $1`, [job.companyHandle]);
         delete job.companyHandle;
         job.company = companyResult.rows[0];
 
