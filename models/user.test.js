@@ -247,4 +247,12 @@ describe("applyToJob", function () {
       expect(err instanceof NotFoundError).toBeTruthy();
     }
   })
+
+  test("not found if no such user", async function () {
+    try {
+      await User.applyToJob("nonexistenthaha", testJobIds[0], "applied");
+    } catch (err) {
+      expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  })
 })
