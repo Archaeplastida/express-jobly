@@ -106,4 +106,9 @@ describe("DELETE /jobs/:id", function () {
         const resp = await request(app).delete(`/jobs/${testJobIds[0]}`);
         expect(resp.statusCode).toEqual(401);
     });
+
+    test("not found for no such job", async function () {
+        const resp = await request(app).delete(`/jobs/0`).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(404);
+    });
 });
