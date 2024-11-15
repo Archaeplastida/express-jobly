@@ -76,3 +76,5 @@ class Job {
         if (!result.rows[0]) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
     }
 }
+
+module.exports = Job;
