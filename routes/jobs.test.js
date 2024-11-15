@@ -95,5 +95,10 @@ describe("DELETE /jobs/:id", function () {
     test("works for admin", async function () {
         const resp = await request(app).delete(`/jobs/${testJobIds[0]}`).set("authorization", `Bearer ${adminToken}`);
         expect(resp.body).toEqual({ deleted: testJobIds[0] });
-      });
-  });
+    });
+
+    test("unauth for others", async function () {
+        const resp = await request(app).delete(`/jobs/${testJobIds[0]}`).set("authorization", `Bearer ${u1Token}`);
+        expect(resp.statusCode).toEqual(401);
+    });
+});
