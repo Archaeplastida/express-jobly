@@ -25,7 +25,7 @@ router.post("/", ensureAdmin, async (req, res, next) => {
 router.get("/", async (req, res, next) => {
     const query = req.query;
     if (query.minSalary !== undefined) query.minSalary = +query.minSalary;
-    query.hasEquity = q.hasEquity === "true";
+    query.hasEquity = query.hasEquity === "true";
 
     try {
         const validator = jsonschema.validate(query, jobSchemaSearch);
