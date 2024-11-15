@@ -72,7 +72,7 @@ describe("update", () => {
 
     test("works as intended", async () => {
         let job = await Job.update(testJobIds[0], updateData);
-        expect(job).toEqual({ id: testJobIds[0], companyHandle: "c1", ...updateData});
+        expect(job).toEqual({ id: testJobIds[0], companyHandle: "c1", ...updateData });
     })
 
     test("throws notFound if job id isn't found", async () => {
