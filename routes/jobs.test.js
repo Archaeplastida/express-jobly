@@ -57,4 +57,9 @@ describe("GET /jobs/:id", function () {
         const resp = await request(app).get(`/jobs/${testJobIds[0]}`);
         expect(resp.body).toEqual({ job: { id: testJobIds[0], title: "J1", salary: 1, equity: "0.1", company: { handle: "c1", name: "C1", description: "Desc1", numEmployees: 1, logoUrl: "http://c1.img" } } });
     });
+
+    test("not found for no such job", async function () {
+        const resp = await request(app).get(`/jobs/0`);
+        expect(resp.statusCode).toEqual(404);
+    });
 });
