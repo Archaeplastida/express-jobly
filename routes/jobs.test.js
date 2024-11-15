@@ -18,4 +18,9 @@ describe("POST /jobs", function () {
         const resp = await request(app).post(`/jobs`).send({ companyHandle: "c1", title: "J-new", salary: 10, equity: "0.2", }).set("authorization", `Bearer ${u1Token}`);
         expect(resp.statusCode).toEqual(401);
     });
+
+    test("bad request with missing data", async function () {
+        const resp = await request(app).post(`/jobs`).send({ companyHandle: "c1", }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(400);
+    });
 });
