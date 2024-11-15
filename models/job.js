@@ -62,7 +62,7 @@ class Job {
 
     static async update(id, data) {
         const { setCols, values } = sqlForPartialUpdate(data, {}), idIndex = "$" + (values.length + 1);
-        const result = await data.query(`UPDATE jobs SET ${setCols} WHERE id = ${idVarIdx} RETURNING id, title, salary, equity, company_handle AS "companyHandle"`, [...values, id]);
+        const result = await db.query(`UPDATE jobs SET ${setCols} WHERE id = ${idIndex} RETURNING id, title, salary, equity, company_handle AS "companyHandle"`, [...values, id]);
         if (!result.rows[0]) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
 
         return result.rows[0];
@@ -72,7 +72,7 @@ class Job {
     // If an id doesn't yield any results, throw NotFoundError.
 
     static async remove(id) {
-        const result = db.query(`DELETE FROM jobs WHERE id = $1 RETURNING id`, [id]);
+        const result = await db.query(`DELETE FROM jobs WHERE id = $1 RETURNING id`, [id]);
         if (!result.rows[0]) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
     }
 }

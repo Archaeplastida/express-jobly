@@ -71,8 +71,8 @@ describe("update", () => {
     let updateData = { title: "New", salary: 500, equity: "0.5" };
 
     test("works as intended", async () => {
-        let job = await Job.update(testJobIds, updateData);
-        expect(job).toEqual({ id: testJobIds[0], companyHandle: "c1", ...updateData, });
+        let job = await Job.update(testJobIds[0], updateData);
+        expect(job).toEqual({ id: testJobIds[0], companyHandle: "c1", ...updateData});
     })
 
     test("throws notFound if job id isn't found", async () => {
@@ -100,12 +100,12 @@ describe("remove", () => {
     test("works as intended", async () => {
         await Job.remove(testJobIds[0]);
         const result = await db.query("SELECT id FROM jobs WHERE id = $1", [testJobIds[0]]);
-        expect(result.row.length).toEqual(0);
+        expect(result.rows.length).toEqual(0);
     })
 
     test("throws notFound if job id isn't found", async () => {
         try {
-            await Job.delete(0);
+            await Job.remove(-1);
             fail();
         } catch (err) {
             expect(err instanceof NotFoundError).toBeTruthy();
