@@ -211,7 +211,7 @@ class User {
 
     if (!job) throw new NotFoundError(`Job ID ${jobId} doesn't exist.`);
 
-    const preCheck2 = await db.query(`SELECT username FROM users WHERE username = $1`, username);
+    const preCheck2 = await db.query(`SELECT username FROM users WHERE username = $1`, [username]);
     const user = preCheck2.rows[0];
 
     if (!user) throw new NotFoundError(`User ${username} doesn't exist.`);
