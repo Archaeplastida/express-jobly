@@ -30,4 +30,9 @@ describe("findAll", () => {
         let jobs = await Job.findAll({ minSalary: 250 });
         expect(jobs).toEqual([{ id: testJobIds[2], title: "Job3", salary: 300, equity: "0", companyHandle: "c1", companyName: "C1", }])
     })
+
+    test("works by equity", async () => {
+        let jobs = await Job.findAll({ hasEquity: true });
+        expect(jobs).toEqual([{ id: testJobIds[0], title: "Job1", salary: 100, equity: "0.1", companyHandle: "c1", companyName: "C1", }, { id: testJobIds[1], title: "Job2", salary: 200, equity: "0.2", companyHandle: "c1", companyName: "C1", }])
+    })
 })
