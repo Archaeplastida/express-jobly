@@ -63,3 +63,10 @@ describe("GET /jobs/:id", function () {
         expect(resp.statusCode).toEqual(404);
     });
 });
+
+describe("PATCH /jobs/:id", function () {
+    test("works for admin", async function () {
+        const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ title: "J-New", }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.body).toEqual({ job: { id: expect.any(Number), title: "J-New", salary: 1, equity: "0.1", companyHandle: "c1" } });
+    });
+});
