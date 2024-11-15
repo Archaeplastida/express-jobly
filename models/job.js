@@ -54,4 +54,17 @@ class Job {
 
         return job;
     }
+
+    // Update job data with data given, this would technically be a parital update, meaning it's fine if the data doesn't contain all of the fields; it dynamically changes only the provided ones.
+    // Data can have: {title, salary, equity}
+    // Returns { id, title, salary equity, companyHandle }
+    // If the id given isn't found, you obviously won't be able to edit it, so you'll get NotFoundError thrown at you.
+
+    static async update(id, data) {
+        const { setCols, values } = sqlForPartialUpdate(data, {}), idIndex = "$" + (values.length + 1);
+        const result = await data.query(`UPDATE jobs SET ${setCols} WHERE id = ${idVarIdx} RETURNING id, title, salary, equity, company_handle AS "companyHandle"`, [...values, id]);
+        if (!result.rows[0]) throw new NotFoundError(`Job ID ${id} doesn't exist.`);
+
+        return result.rows[0];
+    }
 }
