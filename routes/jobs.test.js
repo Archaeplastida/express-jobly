@@ -69,4 +69,10 @@ describe("PATCH /jobs/:id", function () {
         const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ title: "J-New", }).set("authorization", `Bearer ${adminToken}`);
         expect(resp.body).toEqual({ job: { id: expect.any(Number), title: "J-New", salary: 1, equity: "0.1", companyHandle: "c1" } });
     });
+
+    test("unauth for others", async function () {
+        const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ title: "J-New" }).set("authorization", `Bearer ${u1Token}`);
+        expect(resp.statusCode).toEqual(401);
+    });
+
 });
