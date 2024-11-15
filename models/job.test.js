@@ -83,4 +83,13 @@ describe("update", () => {
             expect(err instanceof NotFoundError).toBeTruthy();
         }
     })
+
+    test("bad request with no data", async () => {
+        try {
+            await Job.update(testJobIds[0], {}); //no data
+            fail();
+        } catch (err) {
+            expect(err instanceof BadRequestError).toBeTruthy();
+        }
+    })
 })
