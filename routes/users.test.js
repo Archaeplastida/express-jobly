@@ -352,4 +352,9 @@ describe("POST /users/:username/jobs/:id", function () {
     const resp = await request(app).post(`/users/u1/jobs/${testJobIds[1]}`).set("authorization", `Bearer ${u2Token}`);
     expect(resp.statusCode).toEqual(401);
   })
+
+  test("unauth for anon", async function () {
+    const resp = await request(app).post(`/users/u1/jobs/${testJobIds[1]}`);
+    expect(resp.statusCode).toEqual(401);
+  })
 })
