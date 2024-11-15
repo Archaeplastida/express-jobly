@@ -342,4 +342,9 @@ describe("POST /users/:username/jobs/:id", function () {
     const resp = await request(app).post(`/users/u1/jobs/${testJobIds[1]}`).set("authorization", `Bearer ${adminToken}`);
     expect(resp.body).toEqual({ applied: testJobIds[1] })
   })
+
+  test("works for same user", async function () {
+    const resp = await request(app).post(`/users/u1/jobs/${testJobIds[1]}`).set("authorization", `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({ applied: testJobIds[1] });
+  })
 })
