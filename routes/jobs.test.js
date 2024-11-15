@@ -79,4 +79,9 @@ describe("PATCH /jobs/:id", function () {
         const resp = await request(app).patch(`/jobs/0`).send({ handle: "new" }).set("authorization", `Bearer ${adminToken}`);
         expect(resp.statusCode).toEqual(400);
     });
+
+    test("bad request on handle change attempt", async function () {
+        const resp = await request(app).patch(`/jobs/${testJobIds[0]}`).send({ handle: "new" }).set("authorization", `Bearer ${adminToken}`);
+        expect(resp.statusCode).toEqual(400);
+    });
 });
